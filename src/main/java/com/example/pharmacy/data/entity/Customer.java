@@ -1,4 +1,4 @@
-package com.example.pharmacy.entity;
+package com.example.pharmacy.data.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,31 +13,31 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class CustomerEntity {
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "fullName")
+    @Column(name = "fullname")
     private String fullName;
 
     @Column(name = "birthday")
     private String birthday;
 
     @Column(name = "inn")
-    private Long inn;
+    private String inn;
 
-    @Column(name = "familyStatus")
-    private int familyStatus;
+    @Column(name = "familystatus")
+    private String familyStatus;
 
     @Column(name = "education")
-    private int education;
+    private String education;
 
     @Column(name = "segment")
-    private int segment;
+    private String segment;
 
-    @Column(name = "customerFamilyName")
-    private int customerFamily;
+    @Column(name = "customerfamilyname")
+    private String customerFamily;
 
 }
