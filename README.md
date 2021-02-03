@@ -4,4 +4,4 @@
 CRUD-операции с покупателями <br>
 база данных PostgreSQL <br>
 
-Spring Boot и Thymeleaf
+Spring Boot, Spring Security, JPA и Thymeleaf
