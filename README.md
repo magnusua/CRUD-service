@@ -4,7 +4,7 @@
 CRUD-операции с покупателями <br>
 база данных PostgreSQL <br>
 
-Spring Boot, Spring Security, JPA и Thymeleaf
+Spring Boot, Spring Security, JPA и Thymeleaf + Bootstrap
 
 для входа можно использовать уз:<br>
 user<br>
