@@ -1,4 +1,4 @@
-# pharmacy
+# pharmacy customers crm
 
 простая CRM для управления базой данных покупателей <br>
 CRUD-операции с покупателями <br>
