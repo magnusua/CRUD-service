@@ -2,7 +2,6 @@ package com.example.pharmacy.controller;
 
 import com.example.pharmacy.data.entity.Customer;
 import com.example.pharmacy.services.CustomerService;
-import com.example.pharmacy.data.repository.CustomerRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +25,10 @@ import java.util.Map;
 @RequestMapping("/customer")
 public class CustomerWebController {
 
-    private final CustomerRepository customerRepository;
     private final CustomerService customerService;
 
     @Autowired
-    public CustomerWebController(CustomerRepository customerRepository, CustomerService customerService) {
-        this.customerRepository = customerRepository;
+    public CustomerWebController(CustomerService customerService) {
         this.customerService = customerService;
     }
 
@@ -98,10 +95,9 @@ public class CustomerWebController {
         return json;
     }
 
-
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable String id, Model model) {
-        Customer customerInstance = customerRepository.findById(Long.valueOf(id)).get();
+        Customer customerInstance = customerService.findById(Long.valueOf(id));
         model.addAttribute("customerInstance", customerInstance);
         return "/edit.html";
     }
@@ -114,10 +110,10 @@ public class CustomerWebController {
         if (bindingResult.hasErrors()) {
             return "/edit.html";
         } else {
-            if (customerRepository.save(customerInstance) != null)
-                atts.addFlashAttribute("message", "Customer updated successfully");
+            if (customerService.save(customerInstance))
+                atts.addFlashAttribute("message", "Покупатель успешно обновлен");
             else
-                atts.addFlashAttribute("message", "Customer update failed.");
+                atts.addFlashAttribute("message", "Обновление данных покупателя не удалось.");
 
             return "redirect:/customer";
         }
@@ -137,10 +133,10 @@ public class CustomerWebController {
         if (bindingResult.hasErrors()) {
             return "/create.html";
         } else {
-            if (customerRepository.save(customerInstance) != null)
-                atts.addFlashAttribute("message", "Customer created successfully");
+            if (customerService.save(customerInstance))
+                atts.addFlashAttribute("message", "Покупатель успешно создан");
             else
-                atts.addFlashAttribute("message", "Customer creation failed.");
+                atts.addFlashAttribute("message", "Создание покупателя не удалось.");
 
             return "redirect:/customer";
         }
@@ -148,12 +144,10 @@ public class CustomerWebController {
 
     @PostMapping("/delete")
     public String delete(@RequestParam Long id, RedirectAttributes atts) {
-        Customer customerInstance = customerRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Customer Not Found:" + id));
 
-        customerRepository.delete(customerInstance);
+        customerService.delete(customerService.findById(id));
 
-        atts.addFlashAttribute("message", "Customer deleted.");
+        atts.addFlashAttribute("message", "Покупатель удален.");
 
         return "redirect:/customer";
     }

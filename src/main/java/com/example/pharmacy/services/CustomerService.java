@@ -18,10 +18,24 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
+
     public Page<Customer> getCustomersForDatatable(String queryString, Pageable pageable) {
 
         CustomerDataTableFilter customerDataTableFilter = new CustomerDataTableFilter(queryString);
 
         return customerRepository.findAll(customerDataTableFilter, pageable);
+    }
+
+   public Customer findById(Long id) {
+       return customerRepository.findById(id).get();
+   }
+
+    public boolean save(Customer customerInstance) {
+        customerRepository.save(customerInstance);
+        return true;
+    }
+
+    public void delete(Customer customerInstance) {
+        customerRepository.delete(customerInstance);
     }
 }
